@@ -10,6 +10,7 @@ import villagerSoundUrl from "./assets/villager.mp3?no-inline";
 import zombieSoundUrl from "./assets/zombie.mp3?no-inline";
 import spiderSoundUrl from "./assets/spider.mp3?no-inline";
 import skeletonSoundUrl from "./assets/skeleton.mp3?no-inline";
+import grassSoundUrl from "./assets/grassSound.mp3?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -58,6 +59,15 @@ upgradeFarmSButton.style.display = "none"; // Initially hidden
 function playSound(url: string) {
   const sound = new Audio(url);
   sound.volume = 0.5;
+
+  void sound.play().catch((error) => {
+    console.warn("Could not play sound:", error);
+  });
+}
+
+function playSoundTwo(url: string) {
+  const sound = new Audio(url);
+  sound.volume = 0.02;
 
   void sound.play().catch((error) => {
     console.warn("Could not play sound:", error);
@@ -194,6 +204,7 @@ mineButton.addEventListener("click", () => {
   xp += currentPickaxe.xpPerClick;
   totalXp += currentPickaxe.xpPerClick;
   updateDisplay();
+  playSoundTwo(grassSoundUrl);
 });
 
 // Upgrade pickaxe button click event
